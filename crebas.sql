@@ -6,9 +6,9 @@
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('ADMIN') and o.name = 'FK_ADMIN_INHERITAN_USER')
+   where r.fkeyid = object_id('ADMIN') and o.name = 'FK_ADMIN_INHERITAN_UserDetails')
 alter table ADMIN
-   drop constraint FK_ADMIN_INHERITAN_USER
+   drop constraint FK_ADMIN_INHERITAN_UserDetails
 go
 
 if exists (select 1
@@ -34,9 +34,9 @@ go
 
 if exists (select 1
    from sys.sysreferences r join sys.sysobjects o on (o.id = r.constid and o.type = 'F')
-   where r.fkeyid = object_id('STUDENT') and o.name = 'FK_STUDENT_INHERITAN_USER')
+   where r.fkeyid = object_id('STUDENT') and o.name = 'FK_STUDENT_INHERITAN_UserDetails')
 alter table STUDENT
-   drop constraint FK_STUDENT_INHERITAN_USER
+   drop constraint FK_STUDENT_INHERITAN_UserDetails
 go
 
 if exists (select 1
@@ -131,9 +131,9 @@ go
 
 if exists (select 1
             from  sysobjects
-           where  id = object_id('"USER"')
+           where  id = object_id('UserDetails')
             and   type = 'U')
-   drop table "USER"
+   drop table UserDetails
 go
 
 if exists (select 1
@@ -175,9 +175,8 @@ create table ADMIN (
    USERID               int                  not null,
    FNAME                varchar(50)          not null,
    LNAME                varchar(50)          not null,
-   USERTYPE             varchar(50)          not null,
-   EMAIL                varchar(1)           null,
-   PASSWORD             varchar(1)           null,
+   EMAIL                varchar(150)           null,
+   PASSWORD             varchar(150)           null,
    constraint PK_ADMIN primary key (USERID)
 )
 go
@@ -187,7 +186,7 @@ go
 /*==============================================================*/
 create table AUTHOR (
    AUTHORID             int                  not null,
-   NAME                 varchar(50)          not null,
+   NAME                 varchar(150)          not null,
    constraint PK_AUTHOR primary key (AUTHORID)
 )
 go
@@ -198,9 +197,9 @@ go
 create table BOOK (
    ISBN                 int                  not null,
    USERID               int                  null,
-   TITLE                varchar(50)          not null,
+   TITLE                varchar(150)          not null,
    PUBLICATIONYEAR      datetime             not null,
-   CATEGORY             varchar(50)          not null,
+   CATEGORY             varchar(150)          not null,
    constraint PK_BOOK primary key (ISBN)
 )
 go
@@ -247,9 +246,8 @@ create table STUDENT (
    ISBN                 int                  null,
    FNAME                varchar(50)          not null,
    LNAME                varchar(50)          not null,
-   USERTYPE             varchar(50)          not null,
-   EMAIL                varchar(1)           null,
-   PASSWORD             varchar(1)           null,
+   EMAIL                varchar(150)           null,
+   PASSWORD             varchar(150)           null,
    constraint PK_STUDENT primary key (USERID)
 )
 go
@@ -266,16 +264,16 @@ create nonclustered index PUT_BOOK_FK on STUDENT (WIS_USERID ASC,
 go
 
 /*==============================================================*/
-/* Table: "USER"                                                */
+/* Table: UserDetails                                                */
 /*==============================================================*/
-create table "USER" (
+create table UserDetails (
    FNAME                varchar(50)          not null,
    LNAME                varchar(50)          not null,
    USERID               int                  not null,
    USERTYPE             varchar(50)          not null,
-   EMAIL                varchar(1)           null,
-   PASSWORD             varchar(1)           null,
-   constraint PK_USER primary key (USERID)
+   EMAIL                varchar(150)           null,
+   PASSWORD             varchar(150)           null,
+   constraint PK_UserDetails primary key (USERID)
 )
 go
 
@@ -320,8 +318,8 @@ create nonclustered index WRITE_BY2_FK on WRITE_BY (AUTHORID ASC)
 go
 
 alter table ADMIN
-   add constraint FK_ADMIN_INHERITAN_USER foreign key (USERID)
-      references "USER" (USERID)
+   add constraint FK_ADMIN_INHERITAN_UserDetails foreign key (USERID)
+      references UserDetails (USERID)
 go
 
 alter table BOOK
@@ -340,8 +338,8 @@ alter table BORROWED
 go
 
 alter table STUDENT
-   add constraint FK_STUDENT_INHERITAN_USER foreign key (USERID)
-      references "USER" (USERID)
+   add constraint FK_STUDENT_INHERITAN_UserDetails foreign key (USERID)
+      references UserDetails (USERID)
 go
 
 alter table STUDENT
@@ -363,4 +361,3 @@ alter table WRITE_BY
    add constraint FK_WRITE_BY_WRITE_BY2_AUTHOR foreign key (AUTHORID)
       references AUTHOR (AUTHORID)
 go
-
