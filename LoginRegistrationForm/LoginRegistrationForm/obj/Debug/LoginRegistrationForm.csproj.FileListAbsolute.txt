@@ -1,0 +1,14 @@
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\bin\Debug\LoginRegistrationForm.exe.config
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\bin\Debug\LoginRegistrationForm.exe
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\bin\Debug\LoginRegistrationForm.pdb
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.csproj.AssemblyReference.cache
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.Form1.resources
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.Properties.Resources.resources
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.csproj.GenerateResource.cache
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.csproj.CoreCompileInputs.cache
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.exe
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.pdb
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.Signup.resources
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\bin\Debug\Library.mdf
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\bin\Debug\Library_log.ldf
+Y:\FCAI\Level 2\DataBase\Project\LoginRegistrationForm\LoginRegistrationForm\obj\Debug\LoginRegistrationForm.MainForm.resources
