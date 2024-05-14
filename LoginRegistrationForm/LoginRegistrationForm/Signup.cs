@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using System.Xml.Linq;
 
 namespace LoginRegistrationForm
 {
@@ -68,6 +70,35 @@ namespace LoginRegistrationForm
                                     cmd.Parameters.AddWithValue("@usertype", signup_checkAdmin.Text);
 
                                     cmd.ExecuteNonQuery();
+
+                                    // Insert into specific table based on user type
+                                    string userType = signup_checkAdmin.Text.ToLower();
+                                    if (userType == "admin")
+                                    {
+                                        string insertAdmin = "INSERT INTO Admin (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
+                                        using (SqlCommand cmdAdmin = new SqlCommand(insertAdmin, connect))
+                                        {
+                                            cmdAdmin.Parameters.AddWithValue("@userid", id);
+                                            cmdAdmin.Parameters.AddWithValue("@email", signup_email.Text.Trim());
+                                            cmdAdmin.Parameters.AddWithValue("@fname", signup_fname.Text.Trim());
+                                            cmdAdmin.Parameters.AddWithValue("@lname", signup_sname.Text.Trim());
+                                            cmdAdmin.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                            cmdAdmin.ExecuteNonQuery(); // Execute the INSERT statement
+                                        }
+                                    }
+                                    else
+                                    {
+                                        string insertStudent = "INSERT INTO Student (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
+                                        using (SqlCommand cmdStudent = new SqlCommand(insertStudent, connect))
+                                        {
+                                            cmdStudent.Parameters.AddWithValue("@userid", id);
+                                            cmdStudent.Parameters.AddWithValue("@email", signup_email.Text.Trim());
+                                            cmdStudent.Parameters.AddWithValue("@fname", signup_fname.Text.Trim());
+                                            cmdStudent.Parameters.AddWithValue("@lname", signup_sname.Text.Trim());
+                                            cmdStudent.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                            cmdStudent.ExecuteNonQuery(); // Execute the INSERT statement
+                                        }
+                                    }
 
                                     MessageBox.Show("Registered successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
