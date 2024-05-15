@@ -12,7 +12,7 @@ namespace LoginRegistrationForm
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        public MainForm(String email)
         {
             InitializeComponent();
         }
