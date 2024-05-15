@@ -81,7 +81,7 @@ namespace LoginRegistrationForm
                             {
                                 MessageBox.Show("Logged In successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                MainForm mForm = new MainForm();
+                                MainForm mForm = new MainForm(login_email.Text);
                                 mForm.Show();
                                 this.Hide();
                             }
