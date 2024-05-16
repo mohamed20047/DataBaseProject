@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LoginRegistrationForm
+namespace LoginRegistrationForm 
 {
     public partial class MainForm : Form
     {
-        int id = 1;
+        int bookId = 1, authorId = 1;
         public MainForm(String email)
         {
             InitializeComponent();
@@ -24,24 +24,80 @@ namespace LoginRegistrationForm
 
         }
         private void Insert_Click(object sender, EventArgs e)
-    {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
-        con.Open();
-        String insertData = "insert into BOOK(ISBN, TITLE, PUBLICATIONYEAR, CATEGORY) values(@ISBN, @Title, @publicationYear, @Category)";
-        using (SqlCommand command = new SqlCommand(insertData, con))
         {
-            command.Parameters.AddWithValue("@ISBN", id++);
-            command.Parameters.AddWithValue("@Title", textBox1.Text.ToString());
-            command.Parameters.AddWithValue("@publicationYear", textBox2.Text.ToString());
-            command.Parameters.AddWithValue("@Category", textBox3.Text.ToString());
-            command.ExecuteNonQuery();
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
+            con.Open();
+            String insertData = "insert into BOOK(ISBN, TITLE, PUBLICATIONYEAR, CATEGORY) values(@ISBN, @Title, @publicationYear, @Category)";
+            using (SqlCommand command = new SqlCommand(insertData, con))
+            {
+                command.Parameters.AddWithValue("@ISBN", bookId++);
+                command.Parameters.AddWithValue("@Title", textBox1.Text.ToString());
+                command.Parameters.AddWithValue("@publicationYear", textBox2.Text.ToString());
+                command.Parameters.AddWithValue("@Category", textBox3.Text.ToString());
+                command.ExecuteNonQuery();
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+            }
+
+            String check_author = "select count(*) from author where name = '" + author_name.Text.ToString() + "'";
+
+            SqlCommand countCommand = new SqlCommand(check_author, con);
+
+            int numberOfAuthors = (int) countCommand.ExecuteScalar();
+            if (numberOfAuthors == 0) {
+                String authorInsertion = "insert into AUTHOR values(@id, @name)";
+                using (SqlCommand command2 = new SqlCommand(authorInsertion, con))
+                {
+
+                    command2.Parameters.AddWithValue("@id", authorId++);
+                    command2.Parameters.AddWithValue("@name", author_name.Text.ToString());
+                    command2.ExecuteNonQuery();
+                }
+
+            }
+
+            string authorIdQuery = "select authorid from author where name = '" + author_name.Text.ToString() + "'";
+            SqlCommand authorIdCmd = new SqlCommand(authorIdQuery, con);
+            SqlDataReader reader = authorIdCmd.ExecuteReader();
+            int authorID = 0;
+            while (reader.Read())
+            {
+                authorID = (int)reader[0];
+            }
+            reader.Close();
+
+            String writtenBy = "insert into WRITE_BY values(@bookID, @authorID)";
+            using (SqlCommand writeByCmd = new SqlCommand(writtenBy, con))
+            {
+                writeByCmd.Parameters.AddWithValue("@bookID", bookId-1);
+                writeByCmd.Parameters.AddWithValue("@authorID", authorID);
+                writeByCmd.ExecuteNonQuery();
+            }
+
+            MessageBox.Show("Insertion completed", "Insert box", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            con.Close();
         }
-        MessageBox.Show("Insertion completed","Insert box", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        con.Close();
-    }
 
         private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void author_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void author_name_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
         {
 
         }

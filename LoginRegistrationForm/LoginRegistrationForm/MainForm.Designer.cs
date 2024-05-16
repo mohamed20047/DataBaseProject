@@ -26,9 +26,9 @@
         /// Required method for Designer supp   ort - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-
+        
         private void InitializeComponent()
-        {
+{
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -37,6 +37,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.Insert = new System.Windows.Forms.Button();
+            this.author_name = new System.Windows.Forms.TextBox();
+            this.author = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -76,9 +78,9 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(435, 97);
+            this.textBox2.Location = new System.Drawing.Point(405, 97);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 22);
+            this.textBox2.Size = new System.Drawing.Size(130, 22);
             this.textBox2.TabIndex = 4;
             // 
             // label4
@@ -107,9 +109,28 @@
             this.Insert.UseVisualStyleBackColor = true;
             this.Insert.Click += new System.EventHandler(this.Insert_Click);
             // 
+            // author_name
+            // 
+            this.author_name.Location = new System.Drawing.Point(405, 178);
+            this.author_name.Name = "author_name";
+            this.author_name.Size = new System.Drawing.Size(130, 22);
+            this.author_name.TabIndex = 9;
+            // 
+            // author
+            // 
+            this.author.AutoSize = true;
+            this.author.Location = new System.Drawing.Point(289, 178);
+            this.author.Name = "author";
+            this.author.Size = new System.Drawing.Size(48, 16);
+            this.author.TabIndex = 8;
+            this.author.Text = "Author:";
+            this.author.Click += new System.EventHandler(this.label5_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(611, 337);
+            this.Controls.Add(this.author_name);
+            this.Controls.Add(this.author);
             this.Controls.Add(this.Insert);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.label4);
@@ -119,10 +140,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "MainForm";
+            this.Load += new System.EventHandler(this.MainForm_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 
-        }
+}
 
         #endregion
 
@@ -134,5 +156,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button Insert;
+        private System.Windows.Forms.TextBox author_name;
+        private System.Windows.Forms.Label author;
     }
 }
