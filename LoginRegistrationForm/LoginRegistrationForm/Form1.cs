@@ -14,7 +14,7 @@ namespace LoginRegistrationForm
 {
     public partial class Form1 : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\OneDrive\Documents\loginData.mdf;Integrated Security=True;Connect Timeout=30");
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
         public Form1()
         {
             InitializeComponent();
@@ -81,7 +81,7 @@ namespace LoginRegistrationForm
                             {
                                 MessageBox.Show("Logged In successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                                MainForm mForm = new MainForm(login_email.Text);
+                                Main mForm = new Main();
                                 mForm.Show();
                                 this.Hide();
                             }
@@ -102,6 +102,11 @@ namespace LoginRegistrationForm
 
                 }
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

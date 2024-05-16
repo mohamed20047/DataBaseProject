@@ -65,6 +65,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(631, 403);
             this.panel1.TabIndex = 0;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // login_close
             // 
@@ -193,7 +194,6 @@
             // pictureBox1
             // 
             this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.Image = global::LoginRegistrationForm.Properties.Resources.profilePic2;
             this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(12, 0);
             this.pictureBox1.Name = "pictureBox1";

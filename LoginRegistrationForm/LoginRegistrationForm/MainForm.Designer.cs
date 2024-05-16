@@ -39,6 +39,8 @@
             this.Insert = new System.Windows.Forms.Button();
             this.author_name = new System.Windows.Forms.TextBox();
             this.author = new System.Windows.Forms.Label();
+            this.exit = new System.Windows.Forms.Button();
+            this.back = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -126,9 +128,32 @@
             this.author.Text = "Author:";
             this.author.Click += new System.EventHandler(this.label5_Click);
             // 
+            // exit
+            // 
+            this.exit.BackColor = System.Drawing.Color.White;
+            this.exit.Location = new System.Drawing.Point(427, 277);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(75, 23);
+            this.exit.TabIndex = 10;
+            this.exit.Text = "Exit";
+            this.exit.UseVisualStyleBackColor = false;
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
+            // back
+            // 
+            this.back.Location = new System.Drawing.Point(262, 277);
+            this.back.Name = "back";
+            this.back.Size = new System.Drawing.Size(75, 23);
+            this.back.TabIndex = 11;
+            this.back.Text = "Back";
+            this.back.UseVisualStyleBackColor = true;
+            this.back.Click += new System.EventHandler(this.back_Click);
+            // 
             // MainForm
             // 
             this.ClientSize = new System.Drawing.Size(611, 337);
+            this.Controls.Add(this.back);
+            this.Controls.Add(this.exit);
             this.Controls.Add(this.author_name);
             this.Controls.Add(this.author);
             this.Controls.Add(this.Insert);
@@ -158,5 +183,7 @@
         private System.Windows.Forms.Button Insert;
         private System.Windows.Forms.TextBox author_name;
         private System.Windows.Forms.Label author;
+        private System.Windows.Forms.Button exit;
+        private System.Windows.Forms.Button back;
     }
 }

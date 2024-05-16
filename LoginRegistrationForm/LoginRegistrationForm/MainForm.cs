@@ -13,8 +13,8 @@ namespace LoginRegistrationForm
 {
     public partial class MainForm : Form
     {
-        int bookId = 1, authorId = 1;
-        public MainForm(String email)
+        int bookId, authorId;
+        public MainForm()
         {
             InitializeComponent();
         }
@@ -27,10 +27,39 @@ namespace LoginRegistrationForm
         {
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
             con.Open();
+            string bookIdQuery = "select max(isbn) from book";
+            SqlCommand bookIdCmd = new SqlCommand(bookIdQuery, con);
+            SqlDataReader reader = bookIdCmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.IsDBNull(0))
+                {
+                    bookId = 1;
+                    break;
+                }
+                bookId = ((int) reader[0]) + 1;
+            }
+            reader.Close();
+
+            string authorIdQuery = "select max(authorid) from author";
+            SqlCommand authorIdCmd = new SqlCommand(authorIdQuery, con);
+            reader = authorIdCmd.ExecuteReader();
+            while (reader.Read())
+            {
+                if (reader.IsDBNull(0))
+                {
+                    authorId = 1;
+                    break;
+                }
+                authorId = ((int) reader[0]) + 1;
+            }
+            reader.Close();
+
+
             String insertData = "insert into BOOK(ISBN, TITLE, PUBLICATIONYEAR, CATEGORY) values(@ISBN, @Title, @publicationYear, @Category)";
             using (SqlCommand command = new SqlCommand(insertData, con))
             {
-                command.Parameters.AddWithValue("@ISBN", bookId++);
+                command.Parameters.AddWithValue("@ISBN", bookId);
                 command.Parameters.AddWithValue("@Title", textBox1.Text.ToString());
                 command.Parameters.AddWithValue("@publicationYear", textBox2.Text.ToString());
                 command.Parameters.AddWithValue("@Category", textBox3.Text.ToString());
@@ -55,20 +84,20 @@ namespace LoginRegistrationForm
 
             }
 
-            string authorIdQuery = "select authorid from author where name = '" + author_name.Text.ToString() + "'";
-            SqlCommand authorIdCmd = new SqlCommand(authorIdQuery, con);
-            SqlDataReader reader = authorIdCmd.ExecuteReader();
+            authorIdQuery = "select authorid from author where name = '" + author_name.Text.ToString() + "'";
+            authorIdCmd = new SqlCommand(authorIdQuery, con);
+            reader = authorIdCmd.ExecuteReader();
             int authorID = 0;
             while (reader.Read())
             {
-                authorID = (int)reader[0];
+                authorID = (int) reader[0];
             }
             reader.Close();
 
             String writtenBy = "insert into WRITE_BY values(@bookID, @authorID)";
             using (SqlCommand writeByCmd = new SqlCommand(writtenBy, con))
             {
-                writeByCmd.Parameters.AddWithValue("@bookID", bookId-1);
+                writeByCmd.Parameters.AddWithValue("@bookID", bookId);
                 writeByCmd.Parameters.AddWithValue("@authorID", authorID);
                 writeByCmd.ExecuteNonQuery();
             }
@@ -95,6 +124,18 @@ namespace LoginRegistrationForm
         private void MainForm_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            Main main = new Main();
+            main.Show();
+            this.Hide();
         }
 
         private void label5_Click(object sender, EventArgs e)
