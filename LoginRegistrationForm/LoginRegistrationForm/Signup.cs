@@ -16,7 +16,8 @@ namespace LoginRegistrationForm
 {
     public partial class Signup : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\user\OneDrive\Documents\loginData.mdf;Integrated Security=True;Connect Timeout=30");
+        int id = 0;
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
         public Signup()
         {
             InitializeComponent();
@@ -43,70 +44,62 @@ namespace LoginRegistrationForm
                         String checkUsername = "SELECT * FROM [UserDetails] WHERE userid = @userid";
                         using (SqlCommand checkUser = new SqlCommand(checkUsername, connect))
                         {
-                            int id;
-                            int.TryParse(signup_id.Text.Trim(), out id);
+                            id++;
                             checkUser.Parameters.AddWithValue("@userid", id); // Add parameter with value
                             SqlDataAdapter adapter = new SqlDataAdapter(checkUser);
                             DataTable table = new DataTable(); ;
                             adapter.Fill(table);
 
-                            if (table.Rows.Count >= 1)
-                            {
-                                MessageBox.Show(signup_id.Text + " is already exist", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                string insertData = "INSERT INTO UserDetails (userid, email, fname, lname, password, USERTYPE) " +
-                                    "VALUES(@userid, @email, @fname, @lname, @password, @usertype)";
+                            string insertData = "INSERT INTO UserDetails (userid, email, fname, lname, password, USERTYPE) " +
+                                "VALUES(@userid, @email, @fname, @lname, @password, @usertype)";
 
 
-                                using (SqlCommand cmd = new SqlCommand(insertData, connect))
+                            using (SqlCommand cmd = new SqlCommand(insertData, connect))
+                            {
+                                cmd.Parameters.AddWithValue("@email", signup_email.Text.Trim());
+                                cmd.Parameters.AddWithValue("@userid", id);
+                                cmd.Parameters.AddWithValue("@fname", signup_userrname.Text.Trim());
+                                cmd.Parameters.AddWithValue("@lname", textBox1.Text.Trim());
+                                cmd.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                cmd.Parameters.AddWithValue("@usertype", signup_checkAdmin.Text);
+
+                                cmd.ExecuteNonQuery();
+
+                                // Insert into specific table based on user type
+                                string userType = signup_checkAdmin.Text.ToLower();
+                                if (userType == "admin")
                                 {
-                                    cmd.Parameters.AddWithValue("@email", signup_email.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@userid", id);
-                                    cmd.Parameters.AddWithValue("@fname", signup_fname.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@lname", signup_sname.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@password", signup_password.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@usertype", signup_checkAdmin.Text);
-
-                                    cmd.ExecuteNonQuery();
-
-                                    // Insert into specific table based on user type
-                                    string userType = signup_checkAdmin.Text.ToLower();
-                                    if (userType == "admin")
+                                    string insertAdmin = "INSERT INTO Admin (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
+                                    using (SqlCommand cmdAdmin = new SqlCommand(insertAdmin, connect))
                                     {
-                                        string insertAdmin = "INSERT INTO Admin (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
-                                        using (SqlCommand cmdAdmin = new SqlCommand(insertAdmin, connect))
-                                        {
-                                            cmdAdmin.Parameters.AddWithValue("@userid", id);
-                                            cmdAdmin.Parameters.AddWithValue("@email", signup_email.Text.Trim());
-                                            cmdAdmin.Parameters.AddWithValue("@fname", signup_fname.Text.Trim());
-                                            cmdAdmin.Parameters.AddWithValue("@lname", signup_sname.Text.Trim());
-                                            cmdAdmin.Parameters.AddWithValue("@password", signup_password.Text.Trim());
-                                            cmdAdmin.ExecuteNonQuery(); // Execute the INSERT statement
-                                        }
+                                        cmdAdmin.Parameters.AddWithValue("@userid", id);
+                                        cmdAdmin.Parameters.AddWithValue("@email", signup_email.Text.Trim());
+                                        cmdAdmin.Parameters.AddWithValue("@fname", signup_userrname.Text.Trim());
+                                        cmdAdmin.Parameters.AddWithValue("@lname", textBox1.Text.Trim());
+                                        cmdAdmin.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                        cmdAdmin.ExecuteNonQuery(); // Execute the INSERT statement
                                     }
-                                    else
-                                    {
-                                        string insertStudent = "INSERT INTO Student (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
-                                        using (SqlCommand cmdStudent = new SqlCommand(insertStudent, connect))
-                                        {
-                                            cmdStudent.Parameters.AddWithValue("@userid", id);
-                                            cmdStudent.Parameters.AddWithValue("@email", signup_email.Text.Trim());
-                                            cmdStudent.Parameters.AddWithValue("@fname", signup_fname.Text.Trim());
-                                            cmdStudent.Parameters.AddWithValue("@lname", signup_sname.Text.Trim());
-                                            cmdStudent.Parameters.AddWithValue("@password", signup_password.Text.Trim());
-                                            cmdStudent.ExecuteNonQuery(); // Execute the INSERT statement
-                                        }
-                                    }
-
-                                    MessageBox.Show("Registered successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                                    // TO SWITCH THE FORM 
-                                    Form1 lForm = new Form1();
-                                    lForm.Show();
-                                    this.Hide();
                                 }
+                                else
+                                {
+                                    string insertStudent = "INSERT INTO Student (UserID, Email, FName, LName, Password) VALUES (@userid, @email, @fname, @lname, @password)";
+                                    using (SqlCommand cmdStudent = new SqlCommand(insertStudent, connect))
+                                    {
+                                        cmdStudent.Parameters.AddWithValue("@userid", id);
+                                        cmdStudent.Parameters.AddWithValue("@email", signup_email.Text.Trim());
+                                        cmdStudent.Parameters.AddWithValue("@fname", signup_userrname.Text.Trim());
+                                        cmdStudent.Parameters.AddWithValue("@lname", textBox1.Text.Trim());
+                                        cmdStudent.Parameters.AddWithValue("@password", signup_password.Text.Trim());
+                                        cmdStudent.ExecuteNonQuery(); // Execute the INSERT statement
+                                    }
+                                }
+
+                                MessageBox.Show("Registered successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                // TO SWITCH THE FORM 
+                                Form1 lForm = new Form1();
+                                lForm.Show();
+                                this.Hide();
                             }
                         }
                     }
@@ -166,6 +159,14 @@ namespace LoginRegistrationForm
             Application.Exit();
         }
 
-        
+        private void signup_confirmpassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

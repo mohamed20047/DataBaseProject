@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace LoginRegistrationForm
 {
     public partial class MainForm : Form
     {
+        int id = 1;
         public MainForm(String email)
         {
             InitializeComponent();
@@ -23,12 +25,12 @@ namespace LoginRegistrationForm
         }
         private void Insert_Click(object sender, EventArgs e)
     {
-        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""D:\SecondYear_College\Database systems\Database Project\DataBaseProject-main v1\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf"";Integrated Security=True;Connect Timeout=30");
+        SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
         con.Open();
         String insertData = "insert into BOOK(ISBN, TITLE, PUBLICATIONYEAR, CATEGORY) values(@ISBN, @Title, @publicationYear, @Category)";
         using (SqlCommand command = new SqlCommand(insertData, con))
         {
-            command.Parameters.AddWithValue("@ISBN", 5);
+            command.Parameters.AddWithValue("@ISBN", id++);
             command.Parameters.AddWithValue("@Title", textBox1.Text.ToString());
             command.Parameters.AddWithValue("@publicationYear", textBox2.Text.ToString());
             command.Parameters.AddWithValue("@Category", textBox3.Text.ToString());
@@ -39,5 +41,9 @@ namespace LoginRegistrationForm
         con.Close();
     }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
