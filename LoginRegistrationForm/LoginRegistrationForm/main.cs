@@ -10,11 +10,35 @@ using System.Windows.Forms;
 
 namespace LoginRegistrationForm
 {
-    public partial class main : Form
+    public partial class Main : Form
     {
-        public main()
+        public Main()
         {
             InitializeComponent();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MainForm iForm = new MainForm();
+            iForm.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Modify mForm = new Modify();
+            mForm.Show();
+            this.Hide();
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -63,46 +63,6 @@ namespace LoginRegistrationForm.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _307ce493_b254_4b2d_8ba4_d12c080d6651 {
-            get {
-                object obj = ResourceManager.GetObject("307ce493-b254-4b2d-8ba4-d12c080d6651", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _830 {
-            get {
-                object obj = ResourceManager.GetObject("830", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap p {
-            get {
-                object obj = ResourceManager.GetObject("p", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap profilePic {
-            get {
-                object obj = ResourceManager.GetObject("profilePic", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap profilePic2 {
             get {
                 object obj = ResourceManager.GetObject("profilePic2", resourceCulture);

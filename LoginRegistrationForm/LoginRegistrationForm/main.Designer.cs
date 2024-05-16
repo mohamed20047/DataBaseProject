@@ -1,6 +1,6 @@
 ﻿namespace LoginRegistrationForm
 {
-    partial class main
+    partial class Main
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,86 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.welcome = new System.Windows.Forms.Label();
+            this.insert = new System.Windows.Forms.Button();
+            this.modify = new System.Windows.Forms.Button();
+            this.exit = new System.Windows.Forms.Button();
+            this.showbooks = new System.Windows.Forms.Button();
+            this.SuspendLayout();
+            // 
+            // welcome
+            // 
+            this.welcome.AutoSize = true;
+            this.welcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.welcome.Location = new System.Drawing.Point(104, 9);
+            this.welcome.Name = "welcome";
+            this.welcome.Size = new System.Drawing.Size(116, 25);
+            this.welcome.TabIndex = 1;
+            this.welcome.Text = "Welcome!!";
+            // 
+            // insert
+            // 
+            this.insert.Location = new System.Drawing.Point(12, 74);
+            this.insert.Name = "insert";
+            this.insert.Size = new System.Drawing.Size(299, 67);
+            this.insert.TabIndex = 2;
+            this.insert.Text = "Insert";
+            this.insert.UseVisualStyleBackColor = true;
+            this.insert.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // modify
+            // 
+            this.modify.Location = new System.Drawing.Point(12, 147);
+            this.modify.Name = "modify";
+            this.modify.Size = new System.Drawing.Size(299, 73);
+            this.modify.TabIndex = 3;
+            this.modify.Text = "Modify";
+            this.modify.UseVisualStyleBackColor = true;
+            this.modify.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // exit
+            // 
+            this.exit.Location = new System.Drawing.Point(12, 296);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(299, 64);
+            this.exit.TabIndex = 4;
+            this.exit.Text = "Exit";
+            this.exit.UseVisualStyleBackColor = true;
+            this.exit.Click += new System.EventHandler(this.exit_Click);
+            // 
+            // showbooks
+            // 
+            this.showbooks.Location = new System.Drawing.Point(12, 226);
+            this.showbooks.Name = "showbooks";
+            this.showbooks.Size = new System.Drawing.Size(299, 64);
+            this.showbooks.TabIndex = 5;
+            this.showbooks.Text = "Show Books";
+            this.showbooks.UseVisualStyleBackColor = true;
+            // 
+            // Main
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(323, 371);
+            this.Controls.Add(this.showbooks);
+            this.Controls.Add(this.exit);
+            this.Controls.Add(this.modify);
+            this.Controls.Add(this.insert);
+            this.Controls.Add(this.welcome);
+            this.Name = "Main";
             this.Text = "main";
+            this.Load += new System.EventHandler(this.Main_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Label welcome;
+        private System.Windows.Forms.Button insert;
+        private System.Windows.Forms.Button modify;
+        private System.Windows.Forms.Button exit;
+        private System.Windows.Forms.Button showbooks;
     }
 }
