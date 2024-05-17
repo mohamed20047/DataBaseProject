@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -54,6 +54,13 @@ namespace LoginRegistrationForm
         private void userMainForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void showbooks_Click(object sender, EventArgs e)
+        {
+            showData sd = new showData(userid);
+            sd.Show();
+            this.Hide();
         }
     }
 }
