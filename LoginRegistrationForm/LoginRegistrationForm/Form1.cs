@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
+using System.Reflection;
 
 namespace LoginRegistrationForm
 {
     public partial class Form1 : Form
     {
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+        static string replace = @"bin\Debug";
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "OnlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
         public Form1()
         {
             InitializeComponent();
@@ -68,26 +71,37 @@ namespace LoginRegistrationForm
                     {
                         connect.Open();
 
-                        String selectData = "SELECT * FROM UserDetails WHERE email = @email AND password = @pass";
+                        String selectData = "SELECT UserID, UserType FROM UserDetails WHERE email = @email AND password = @pass";
                         using (SqlCommand cmd = new SqlCommand(selectData, connect))
                         {
                             cmd.Parameters.AddWithValue("@email", login_email.Text);
                             cmd.Parameters.AddWithValue("@pass", login_password.Text);
-                            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                            DataTable table = new DataTable();
-                            adapter.Fill(table);
-
-                            if (table.Rows.Count >= 1)
+                            using (SqlDataReader reader = cmd.ExecuteReader())
                             {
-                                MessageBox.Show("Logged In successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (reader.HasRows)
+                                {
+                                    reader.Read(); // Move to the first retrieved row
+                                    int userId = reader.GetInt32(0); // Get user ID from the first column
+                                    string userType = reader.GetString(1); // Get user type from the second column
 
-                                Main mForm = new Main();
-                                mForm.Show();
-                                this.Hide();
-                            }
-                            else
-                            {
-                                MessageBox.Show("Incorrect Username/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("Logged In successfully", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                                    if (userType == "Admin")
+                                    {
+                                        Main mForm = new Main(userId); // Pass user ID to constructor
+                                        mForm.Show();
+                                    }
+                                    else
+                                    {
+                                        userMainForm uForm = new userMainForm(userId); // Pass user ID to constructor
+                                        uForm.Show();
+                                    }
+                                    this.Hide();
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Incorrect Username/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
                         }
                     }
