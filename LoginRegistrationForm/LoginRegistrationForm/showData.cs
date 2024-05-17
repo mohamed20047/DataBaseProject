@@ -27,10 +27,12 @@ namespace LoginRegistrationForm
             tableName.Items.Add("STUDENT");
             tableName.Items.Add("UserDetails");
             tableName.Items.Add("WRITE_BY");
+            tableName.Items.Add("BOOK, AUTHOR");
+            dataGridView1.Enabled = false;
 
             //tableName.Items.Add("BORROWED");
 
-            
+
         }
 
         private void showData_Load(object sender, EventArgs e)
@@ -44,13 +46,22 @@ namespace LoginRegistrationForm
             string replace = @"bin\Debug";
             SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "OnlineLibrary.mdf") +";Integrated Security=True;Connect Timeout=30");
             con.Open();
+            if(tableName.Text == "BOOK, AUTHOR")
+            {
+                string bookNamesQuery1 = "select AUTHOR.NAME as Author_name  ,BOOK.TITLE as Book_Title , BOOK.CATEGORY as Book_Category from AUTHOR , BOOK, WRITE_BY  where AUTHOR.AUTHORID = WRITE_BY.AUTHORID and BOOK.ISBN = WRITE_BY.ISBN ";
+                SqlCommand cmd = new SqlCommand(bookNamesQuery1, con);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dataTable);
+                dataGridView1.DataSource = dataTable;
+                dataGridView1.Refresh();
+                return;
+            }
             string bookNamesQuery = "select * from " + tableName.Text;
-            SqlCommand cmd = new SqlCommand(bookNamesQuery, con);
-            SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-            adapter.Fill(dataTable);
+            SqlCommand cmd1 = new SqlCommand(bookNamesQuery, con);
+            SqlDataAdapter adapter1 = new SqlDataAdapter(cmd1);
+            adapter1.Fill(dataTable);
             dataGridView1.DataSource = dataTable;
             dataGridView1.Refresh();
-            label1.Text = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
         private void button1_Click(object sender, EventArgs e)
