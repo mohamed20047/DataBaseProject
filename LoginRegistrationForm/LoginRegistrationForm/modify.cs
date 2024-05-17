@@ -1,11 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -33,17 +35,19 @@ namespace LoginRegistrationForm
 
 
         string chosenBook;
-
-        public Modify()
+        int adminID = 0;
+        public Modify(int id)
         {
             InitializeComponent();
             refresh();
+            adminID = id;
         }
 
         private void refresh()
         {
             bookTitle.Items.Clear();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
             con.Open();
             string bookNamesQuery = "select title from book";
             SqlCommand bookNamesCmd = new SqlCommand(bookNamesQuery, con);
@@ -204,6 +208,7 @@ namespace LoginRegistrationForm
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "Modify";
+            this.Load += new System.EventHandler(this.Modify_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,7 +217,8 @@ namespace LoginRegistrationForm
         // for delete
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\Documents\FCAI\Database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\onlineLibrary.mdf;Integrated Security=True");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
             con.Open();
 
             int bookId = 0;
@@ -246,7 +252,8 @@ namespace LoginRegistrationForm
 
         private void update_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
             con.Open();
 
             String updateData = "update BOOK set title = @title, publicationyear = @pubyear, category = @category where title = '" + chosenBook + "'";
@@ -272,7 +279,8 @@ namespace LoginRegistrationForm
 
         private void bookTitle_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
             con.Open();
 
             chosenBook = bookTitle.Text.ToString();
@@ -293,9 +301,14 @@ namespace LoginRegistrationForm
 
         private void back_Click(object sender, EventArgs e)
         {
-            Main main = new Main();
+            Main main = new Main(adminID);
             main.Show();
             this.Hide();
+        }
+
+        private void Modify_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
