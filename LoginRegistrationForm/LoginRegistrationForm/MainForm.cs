@@ -1,10 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,10 +15,11 @@ namespace LoginRegistrationForm
 {
     public partial class MainForm : Form
     {
-        int bookId, authorId;
-        public MainForm()
+        int bookId, authorId, adminID;
+        public MainForm(int id)
         {
             InitializeComponent();
+            adminID = id;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -25,7 +28,8 @@ namespace LoginRegistrationForm
         }
         private void Insert_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
             con.Open();
             string bookIdQuery = "select max(isbn) from book";
             SqlCommand bookIdCmd = new SqlCommand(bookIdQuery, con);
@@ -133,7 +137,7 @@ namespace LoginRegistrationForm
 
         private void back_Click(object sender, EventArgs e)
         {
-            Main main = new Main();
+            Main main = new Main(adminID);
             main.Show();
             this.Hide();
         }
