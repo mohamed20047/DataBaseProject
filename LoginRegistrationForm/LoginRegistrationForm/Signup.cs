@@ -11,16 +11,32 @@ using System.Data;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 using System.Xml.Linq;
+using System.IO;
+using System.Reflection;
 
 namespace LoginRegistrationForm
 {
     public partial class Signup : Form
     {
         int id = 0;
-        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+        static string replace = @"bin\Debug";
+        SqlConnection connect = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "onlineLibrary.mdf") + ";Integrated Security=True;Connect Timeout=30");
         public Signup()
         {
             InitializeComponent();
+        }
+        private void getID()
+        {
+            string query = "select max(userid) from UserDetails";
+            connect.Open();
+            SqlCommand cmd = new SqlCommand(query, connect);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                id = Convert.ToInt32(reader["ID"]);
+            }
+            connect.Close();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -44,7 +60,6 @@ namespace LoginRegistrationForm
                         String checkUsername = "SELECT * FROM [UserDetails] WHERE userid = @userid";
                         using (SqlCommand checkUser = new SqlCommand(checkUsername, connect))
                         {
-                            id++;
                             checkUser.Parameters.AddWithValue("@userid", id); // Add parameter with value
                             SqlDataAdapter adapter = new SqlDataAdapter(checkUser);
                             DataTable table = new DataTable(); ;
