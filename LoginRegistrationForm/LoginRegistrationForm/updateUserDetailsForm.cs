@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -53,8 +53,51 @@ namespace LoginRegistrationForm
                 updateCommand.Parameters.AddWithValue("@email", emailBox.Text.ToString());
                 updateCommand.Parameters.AddWithValue("@pass", PasswordBox.Text.ToString());
                 updateCommand.Parameters.AddWithValue("@userid", userID);
+                updateCommand.ExecuteNonQuery();
+
             }
+            string updateUserDetails = "update userdetails set fname = @fname, lname = @lname, email = @email, password = @pass where userid = @userid";
+            using (SqlCommand updateCommand = new SqlCommand(updateUserDetails, con))
+            {
+                updateCommand.Parameters.AddWithValue("@fname", firstNameBox.Text.ToString());
+                updateCommand.Parameters.AddWithValue("@lname", LastNameBox.Text.ToString());
+                updateCommand.Parameters.AddWithValue("@email", emailBox.Text.ToString());
+                updateCommand.Parameters.AddWithValue("@pass", PasswordBox.Text.ToString());
+                updateCommand.Parameters.AddWithValue("@userid", userID);
+                updateCommand.ExecuteNonQuery();
+
+            }
+            MessageBox.Show("The details have been updated successfully", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             con.Close();
+        }
+
+        private void showNewPass_CheckedChanged(object sender, EventArgs e)
+        {
+            if (showNewPass.Checked)
+            {
+                PasswordBox.PasswordChar = '\0';
+            }
+            else
+            {
+                PasswordBox.PasswordChar = '*';
+            }
+        }
+
+        private void back_Click(object sender, EventArgs e)
+        {
+            userMainForm uMF = new userMainForm(userID);
+            uMF.Show();
+            this.Hide();
+        }
+
+        private void exit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void updateUserDetailsForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
