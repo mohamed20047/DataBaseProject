@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +12,11 @@ namespace LoginRegistrationForm
 {
     public partial class Main : Form
     {
-        public Main()
+        int adminId = 0;
+        public Main(int id)
         {
             InitializeComponent();
+            adminId = id;
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -24,14 +26,14 @@ namespace LoginRegistrationForm
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MainForm iForm = new MainForm();
+            MainForm iForm = new MainForm(adminId);
             iForm.Show();
             this.Hide();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Modify mForm = new Modify();
+            Modify mForm = new Modify(adminId);
             mForm.Show();
             this.Hide();
         }
@@ -43,7 +45,7 @@ namespace LoginRegistrationForm
 
         private void showbooks_Click(object sender, EventArgs e)
         {
-            Form form = new showData();
+            Form form = new showData(adminId);
             form.Show();
             this.Hide();
         }
