@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.IO;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace LoginRegistrationForm
 {
@@ -38,7 +41,8 @@ namespace LoginRegistrationForm
         private void Show_Click(object sender, EventArgs e)
         {
             DataTable dataTable = new DataTable();
-            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=M:\FCAI\fourth term\database\DataBaseProject\LoginRegistrationForm\LoginRegistrationForm\OnlineLibrary.mdf;Integrated Security=True;Connect Timeout=30");
+            string replace = @"bin\Debug";
+            SqlConnection con = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename="+Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace(replace, "OnlineLibrary.mdf") +";Integrated Security=True;Connect Timeout=30");
             con.Open();
             string bookNamesQuery = "select * from " + tableName.Text;
             SqlCommand cmd = new SqlCommand(bookNamesQuery, con);
@@ -46,7 +50,7 @@ namespace LoginRegistrationForm
             adapter.Fill(dataTable);
             dataGridView1.DataSource = dataTable;
             dataGridView1.Refresh();
-            
+            label1.Text = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         }
 
         private void button1_Click(object sender, EventArgs e)
