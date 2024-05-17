@@ -40,5 +40,12 @@ namespace LoginRegistrationForm
         {
             Application.Exit();
         }
+
+        private void showbooks_Click(object sender, EventArgs e)
+        {
+            Form form = new showData();
+            form.Show();
+            this.Hide();
+        }
     }
 }

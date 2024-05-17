@@ -39,17 +39,19 @@
             // 
             this.welcome.AutoSize = true;
             this.welcome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.welcome.Location = new System.Drawing.Point(104, 9);
+            this.welcome.Location = new System.Drawing.Point(78, 7);
+            this.welcome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.welcome.Name = "welcome";
-            this.welcome.Size = new System.Drawing.Size(116, 25);
+            this.welcome.Size = new System.Drawing.Size(92, 20);
             this.welcome.TabIndex = 1;
             this.welcome.Text = "Welcome!!";
             // 
             // insert
             // 
-            this.insert.Location = new System.Drawing.Point(12, 74);
+            this.insert.Location = new System.Drawing.Point(9, 60);
+            this.insert.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.insert.Name = "insert";
-            this.insert.Size = new System.Drawing.Size(299, 67);
+            this.insert.Size = new System.Drawing.Size(224, 54);
             this.insert.TabIndex = 2;
             this.insert.Text = "Insert";
             this.insert.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@
             // 
             // modify
             // 
-            this.modify.Location = new System.Drawing.Point(12, 147);
+            this.modify.Location = new System.Drawing.Point(9, 119);
+            this.modify.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.modify.Name = "modify";
-            this.modify.Size = new System.Drawing.Size(299, 73);
+            this.modify.Size = new System.Drawing.Size(224, 59);
             this.modify.TabIndex = 3;
             this.modify.Text = "Modify";
             this.modify.UseVisualStyleBackColor = true;
@@ -67,9 +70,10 @@
             // 
             // exit
             // 
-            this.exit.Location = new System.Drawing.Point(12, 296);
+            this.exit.Location = new System.Drawing.Point(9, 240);
+            this.exit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.exit.Name = "exit";
-            this.exit.Size = new System.Drawing.Size(299, 64);
+            this.exit.Size = new System.Drawing.Size(224, 52);
             this.exit.TabIndex = 4;
             this.exit.Text = "Exit";
             this.exit.UseVisualStyleBackColor = true;
@@ -77,23 +81,26 @@
             // 
             // showbooks
             // 
-            this.showbooks.Location = new System.Drawing.Point(12, 226);
+            this.showbooks.Location = new System.Drawing.Point(9, 184);
+            this.showbooks.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.showbooks.Name = "showbooks";
-            this.showbooks.Size = new System.Drawing.Size(299, 64);
+            this.showbooks.Size = new System.Drawing.Size(224, 52);
             this.showbooks.TabIndex = 5;
-            this.showbooks.Text = "Show Books";
+            this.showbooks.Text = "Show Tabls";
             this.showbooks.UseVisualStyleBackColor = true;
+            this.showbooks.Click += new System.EventHandler(this.showbooks_Click);
             // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(323, 371);
+            this.ClientSize = new System.Drawing.Size(242, 301);
             this.Controls.Add(this.showbooks);
             this.Controls.Add(this.exit);
             this.Controls.Add(this.modify);
             this.Controls.Add(this.insert);
             this.Controls.Add(this.welcome);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Main";
             this.Text = "main";
             this.Load += new System.EventHandler(this.Main_Load);
